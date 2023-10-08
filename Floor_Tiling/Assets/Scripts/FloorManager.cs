@@ -19,10 +19,43 @@ public class FloorManager : MonoBehaviour{
     private void Start(){
         var floor = Instantiate(floorPrefab, transform);
         var floorScript = floor.GetComponent<Floor>();
-        floorScript.StartCycle(transform, spawnRadius, floorPrefab, this);
+        _floorList.Add(floorScript);
+        
+        PopulateFloor();
+        PopulateFloor();
+        PopulateFloor();
     }
 
-    public void SubmitFloor(Floor floorTile){
-        _floorList.Add(floorTile);
+    private void PopulateFloor(){
+        var continueLoop = true;
+        // while (continueLoop){
+            var length = _floorList.Count;
+            for (int i = 0; i < length; i++){
+                var floor = _floorList[i];
+                var spawnPosList = floor.SpawnPositions;
+                continueLoop = false;
+                
+                // var newTempList = new List<Floor>();
+                foreach (var tra in spawnPosList){
+                    // create a box raycast and find if any floor object is present there or not
+                    var halfext = new Vector3(0.5f, 0.5f, 0.5f);
+                    var boxCast = Physics.BoxCast(tra.position, halfext, Vector3.up, out var hitInfo);
+                    if (boxCast && hitInfo.collider.CompareTag("Floor")){
+                        Debug.Log("Floor is present");
+                        continue;
+                    }
+
+                    if (Vector3.Distance(transform.position, tra.position) < spawnRadius){
+                        var newFloor = Instantiate(floorPrefab, transform);
+                        newFloor.transform.position = tra.position;
+                        var floorScript = newFloor.GetComponent<Floor>();
+                        _floorList.Add(floorScript);
+                        // continueLoop = true;
+                    }
+                    
+                    // _floorList.AddRange(newTempList);
+                }
+            }
+        // }
     }
 }
