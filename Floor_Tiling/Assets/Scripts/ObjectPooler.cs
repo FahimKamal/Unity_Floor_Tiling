@@ -14,6 +14,8 @@ public class ObjectPooler : MonoBehaviour
         else{
             Instance = this;
         }
+        
+        PopulatePool();
     }
 
     public enum ObjectTag{
@@ -31,9 +33,8 @@ public class ObjectPooler : MonoBehaviour
     
     [SerializeField] List<Pool> pools;
     public Dictionary<ObjectTag, Queue<GameObject>> PoolDictionary;
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    private void PopulatePool(){
         PoolDictionary = new Dictionary<ObjectTag, Queue<GameObject>>();
 
         foreach (var pool in pools){
