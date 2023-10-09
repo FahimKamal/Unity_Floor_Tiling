@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Floor : MonoBehaviour
+public class Floor : MonoBehaviour, IPooledObject
 {
     [SerializeField] private List<Transform> spawnPositions;
 
@@ -14,5 +14,9 @@ public class Floor : MonoBehaviour
         // }
 
         // Debug.Log("found something");
+    }
+
+    public void OnObjectSpawn(){
+        
     }
 }
