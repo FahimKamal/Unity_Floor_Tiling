@@ -11,21 +11,17 @@ public class FloorManager : MonoBehaviour{
         _floorList = new List<Floor>();
     }
 
-    [SerializeField] private List<GameObject> floorPrefabs;
+    [SerializeField] private List<PoolObjectSO> floorPrefabs;
     [SerializeField] private int spawnRadius = 50;
 
     private List<Floor> _floorList;
     
 
-    private  GameObject FloorPrefab => floorPrefabs[Random.Range(0, floorPrefabs.Count)];
+    private  PoolObjectSO FloorPrefab => floorPrefabs[Random.Range(0, floorPrefabs.Count)];
 
-    private ObjectPooler.ObjectTag GetRandomTag(){
-            return (ObjectPooler.ObjectTag) Random.Range(0, Enum.GetNames(typeof(ObjectPooler.ObjectTag)).Length);
-    }
-    
     private void Start(){
         // var floor = Instantiate(FloorPrefab, transform);
-        var floor = ObjectPooler.Instance.SpawnFromPool(GetRandomTag(), transform.position);
+        var floor = ObjectPoolerV2.Instance.SpawnFromPool(FloorPrefab, transform.position);
         var floorScript = floor.GetComponent<Floor>();
         _floorList.Add(floorScript);
         
@@ -52,7 +48,7 @@ public class FloorManager : MonoBehaviour{
                     if (Vector3.Distance(center.position, tra.position) < spawnRadius){
                         Debug.Log("Distance is: " + Vector3.Distance(center.position, tra.position));
                         // var newFloor = Instantiate(FloorPrefab, transform);
-                        var newFloor = ObjectPooler.Instance.SpawnFromPool(GetRandomTag(), center.position);
+                        var newFloor = ObjectPoolerV2.Instance.SpawnFromPool(FloorPrefab, center.position);
                         newFloor.transform.position = tra.position;
                         var floorScript = newFloor.GetComponent<Floor>();
                         newTempList.Add(floorScript);
@@ -91,7 +87,8 @@ public class FloorManager : MonoBehaviour{
         foreach (var floor in floors){
             _floorList.Remove(floor);
             // Destroy(floor.gameObject);
-            floor.gameObject.SetActive(false);
+            // floor.gameObject.SetActive(false);
+            ObjectPoolerV2.Instance.ReturnToPool(floor.gameObject);
         }
     }
 
