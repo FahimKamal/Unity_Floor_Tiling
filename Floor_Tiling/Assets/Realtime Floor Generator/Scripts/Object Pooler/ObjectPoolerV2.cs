@@ -23,7 +23,7 @@ public class ObjectPoolerV2 : MonoBehaviour
         public int objectSize;
     }
     
-    [SerializeField] List<Pool> pools;
+    [SerializeField] private List<Pool> pools;
     private Dictionary<PoolObjectSO, Queue<GameObject>> PoolDictionary;
     private List<GameObject> _objectTypeParent;
 
@@ -57,7 +57,6 @@ public class ObjectPoolerV2 : MonoBehaviour
         if (PoolDictionary[objectType].Count == 0){
             Debug.LogWarning("Pool with tag " + objectType + " is empty.");
             var objParent = _objectTypeParent.Find(x => x.name == objectType.ObjectName + "Parent");
-            // var poolObjType = pools.Find(x => x.poolObjectSo.ObjectName == objectType).poolObjectSo;
             var obj = Instantiate(objectType.Prefab, objParent.transform);
             obj.GetComponent<IPooledObject>().objectType = objectType;
             obj.SetActive(false);
@@ -80,6 +79,7 @@ public class ObjectPoolerV2 : MonoBehaviour
         if(obj.TryGetComponent<IPooledObject>(out var pooledObj)){
             var objType = pooledObj.objectType;
             PoolDictionary[objType].Enqueue(obj);
+            pooledObj.OnObjectDeSpawn();
             obj.SetActive(false);
         }
         else{

@@ -46,7 +46,7 @@ public class FloorManager : MonoBehaviour{
                 if (CheckEmptyPosition(tra, _floorList) && CheckEmptyPosition(tra, newTempList)){
                     // Debug.Log("Empty spot found");
                     if (Vector3.Distance(center.position, tra.position) < spawnRadius){
-                        Debug.Log("Distance is: " + Vector3.Distance(center.position, tra.position));
+                        // Debug.Log("Distance is: " + Vector3.Distance(center.position, tra.position));
                         // var newFloor = Instantiate(FloorPrefab, transform);
                         var newFloor = ObjectPoolerV2.Instance.SpawnFromPool(FloorPrefab, center.position);
                         newFloor.transform.position = tra.position;
