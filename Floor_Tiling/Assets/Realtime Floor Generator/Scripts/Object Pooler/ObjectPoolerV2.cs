@@ -25,16 +25,16 @@ public class ObjectPoolerV2 : MonoBehaviour
     
     [SerializeField] private List<Pool> pools;
     private Dictionary<PoolObjectSO, Queue<GameObject>> PoolDictionary;
-    private List<GameObject> _objectTypeParent;
+    private Dictionary<PoolObjectSO, GameObject> _objectTypeParent;
 
     private void PopulatePool(){
         PoolDictionary = new Dictionary<PoolObjectSO, Queue<GameObject>>();
-        _objectTypeParent = new List<GameObject>();
+        _objectTypeParent = new Dictionary<PoolObjectSO, GameObject>();
 
         foreach (var pool in pools){
             var objParent = new GameObject(pool.poolObjectSo.ObjectName + "Parent");
             objParent.transform.position = Vector3.zero;
-            _objectTypeParent.Add(objParent);
+            _objectTypeParent[pool.poolObjectSo] = objParent;
             objParent.transform.SetParent(transform);
             var objectPool = new Queue<GameObject>();
             for (int i = 0; i < pool.objectSize; i++){
@@ -56,7 +56,7 @@ public class ObjectPoolerV2 : MonoBehaviour
 
         if (PoolDictionary[objectType].Count == 0){
             Debug.LogWarning("Pool with tag " + objectType + " is empty.");
-            var objParent = _objectTypeParent.Find(x => x.name == objectType.ObjectName + "Parent");
+            var objParent = _objectTypeParent[objectType];
             var obj = Instantiate(objectType.Prefab, objParent.transform);
             obj.GetComponent<IPooledObject>().objectType = objectType;
             obj.SetActive(false);

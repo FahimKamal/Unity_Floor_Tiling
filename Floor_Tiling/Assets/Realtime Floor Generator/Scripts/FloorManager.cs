@@ -38,7 +38,7 @@ public class FloorManager : MonoBehaviour{
         var newTempList = new List<Floor>();
         var length = _floorList.Count;
         continueLoop = false;
-        for (int i = 0; i < length; i++){
+        for (int i = length-1; i >=0 ; --i){
             var floor = _floorList[i];
             var spawnPosList = floor.SpawnPositions;
             
@@ -63,22 +63,32 @@ public class FloorManager : MonoBehaviour{
     }
 
     private bool CheckEmptyPosition(Transform trans, List<Floor> checkList){
-        foreach (var floor in checkList){
-            if (floor.transform.position == trans.position){
+        for (int i = checkList.Count - 1; i >= 0; i--){
+            if (checkList[i].transform.position == trans.position){
                 return false;
             }
         }
+        // foreach (var floor in checkList){
+        //     if (floor.transform.position == trans.position){
+        //         return false;
+        //     }
+        // }
 
         return true;
     }
 
     private List<Floor> GetOutOfRadiusFloors(Transform center){
         var tempList = new List<Floor>();
-        foreach (var floor in _floorList){
-            if (Vector3.Distance(center.position, floor.transform.position) > spawnRadius){
-                tempList.Add(floor);
+        for (int i = _floorList.Count-1; i >= 0; --i){
+            if (Vector3.Distance(center.position, _floorList[i].transform.position) > spawnRadius){
+                tempList.Add(_floorList[i]);
             }
         }
+        // foreach (var floor in _floorList){
+        //     if (Vector3.Distance(center.position, floor.transform.position) > spawnRadius){
+        //         tempList.Add(floor);
+        //     }
+        // }
         return tempList;
     }
     
