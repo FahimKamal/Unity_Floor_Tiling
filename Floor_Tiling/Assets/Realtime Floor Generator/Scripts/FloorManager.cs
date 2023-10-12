@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -68,11 +67,6 @@ public class FloorManager : MonoBehaviour{
                 return false;
             }
         }
-        // foreach (var floor in checkList){
-        //     if (floor.transform.position == trans.position){
-        //         return false;
-        //     }
-        // }
 
         return true;
     }
@@ -84,11 +78,6 @@ public class FloorManager : MonoBehaviour{
                 tempList.Add(_floorList[i]);
             }
         }
-        // foreach (var floor in _floorList){
-        //     if (Vector3.Distance(center.position, floor.transform.position) > spawnRadius){
-        //         tempList.Add(floor);
-        //     }
-        // }
         return tempList;
     }
     
