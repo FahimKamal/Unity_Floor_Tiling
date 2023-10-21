@@ -10,13 +10,13 @@ public class FloorManager : MonoBehaviour{
         _floorList = new List<Floor>();
     }
 
-    [SerializeField] private List<PoolObjectSO> floorPrefabs;
+    [SerializeField] private List<PoolObject> floorPrefabs;
     [SerializeField] private int spawnRadius = 50;
 
     private List<Floor> _floorList;
     
 
-    private  PoolObjectSO FloorPrefab => floorPrefabs[Random.Range(0, floorPrefabs.Count)];
+    private  PoolObject FloorPrefab => floorPrefabs[Random.Range(0, floorPrefabs.Count)];
 
     private void Start(){
         // var floor = Instantiate(FloorPrefab, transform);

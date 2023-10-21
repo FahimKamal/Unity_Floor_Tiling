@@ -65,8 +65,8 @@ GameObject:
   - component: {fileID: 353094743785527430}
   - component: {fileID: 459714605467595172}
   - component: {fileID: 1543389468211086035}
-  - component: {fileID: 3675145737534895740}
   - component: {fileID: 5809294551415182595}
+  - component: {fileID: 782613909071333992}
   m_Layer: 6
   m_Name: Floor
   m_TagString: Floor
@@ -161,29 +161,6 @@ MonoBehaviour:
   - {fileID: 2409000806942714837}
   - {fileID: 7903728051608489258}
   - {fileID: 3212110363726577342}
---- !u!114 &3675145737534895740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3916761705173297294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49be159113568d4a9c5fe3994bb093c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RendererInfo:
-  - renderer: {fileID: 459714605467595172}
-    lightmapIndex: 0
-    lightmapOffsetScale: {x: 0.390625, y: 0.390625, z: 0, w: 0}
-  m_Lightmaps:
-  - {fileID: 2800000, guid: 03ebdfb57717ac34e93c8c1c74caf08d, type: 3}
-  m_LightmapsDir:
-  - {fileID: 2800000, guid: 1671bb7fdeb60f34ca2a34504a5cf552, type: 3}
-  m_ShadowMasks:
-  - {fileID: 0}
-  m_LightInfo: []
 --- !u!65 &5809294551415182595
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -205,6 +182,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 5, z: 10}
   m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &782613909071333992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3916761705173297294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e01d851c0659a40b1e0df5b186c13a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: 
+  prefab: {fileID: 3916761705173297294}
 --- !u!1 &5176443499110374911
 GameObject:
   m_ObjectHideFlags: 0

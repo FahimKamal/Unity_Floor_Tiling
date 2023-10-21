@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ObjectPoolerV2 : MonoBehaviour
 {
@@ -19,36 +20,36 @@ public class ObjectPoolerV2 : MonoBehaviour
     
     [Serializable]
     public class Pool{
-        public PoolObjectSO poolObjectSo;
+        [FormerlySerializedAs("poolObjectSo")] public PoolObject poolObject;
         public int objectSize;
     }
     
     [SerializeField] private List<Pool> pools;
-    private Dictionary<PoolObjectSO, Queue<GameObject>> PoolDictionary;
-    private Dictionary<PoolObjectSO, GameObject> _objectTypeParent;
+    private Dictionary<PoolObject, Queue<GameObject>> PoolDictionary;
+    private Dictionary<PoolObject, GameObject> _objectTypeParent;
 
     private void PopulatePool(){
-        PoolDictionary = new Dictionary<PoolObjectSO, Queue<GameObject>>();
-        _objectTypeParent = new Dictionary<PoolObjectSO, GameObject>();
+        PoolDictionary = new Dictionary<PoolObject, Queue<GameObject>>();
+        _objectTypeParent = new Dictionary<PoolObject, GameObject>();
 
         foreach (var pool in pools){
-            var objParent = new GameObject(pool.poolObjectSo.ObjectName + "Parent");
+            var objParent = new GameObject(pool.poolObject.ObjectName + "Parent");
             objParent.transform.position = Vector3.zero;
-            _objectTypeParent[pool.poolObjectSo] = objParent;
+            _objectTypeParent[pool.poolObject] = objParent;
             objParent.transform.SetParent(transform);
             var objectPool = new Queue<GameObject>();
             for (int i = 0; i < pool.objectSize; i++){
-                var obj = Instantiate(pool.poolObjectSo.Prefab, objParent.transform);
-                obj.GetComponent<IPooledObject>().objectType = pool.poolObjectSo;
+                var obj = Instantiate(pool.poolObject.Prefab, objParent.transform);
+                obj.GetComponent<IPooledObject>().objectType = pool.poolObject;
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
             
-            PoolDictionary.Add(pool.poolObjectSo, objectPool);
+            PoolDictionary.Add(pool.poolObject, objectPool);
         }
     }
 
-    public GameObject SpawnFromPool(PoolObjectSO objectType, Vector3 position){
+    public GameObject SpawnFromPool(PoolObject objectType, Vector3 position){
         if (!PoolDictionary.ContainsKey(objectType)){
             Debug.LogWarning("Pool with tag " + objectType.ObjectName + " doesn't exist.");
             return null;

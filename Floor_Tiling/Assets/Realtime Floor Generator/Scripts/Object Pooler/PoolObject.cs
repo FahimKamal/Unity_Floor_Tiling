@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Pool Object SO", menuName = "ScriptableObjects/Pool Object SO")]
-public class PoolObjectSO : ScriptableObject{
+// [CreateAssetMenu(fileName = "Pool Object SO", menuName = "ScriptableObjects/Pool Object SO")]
+public class PoolObject : MonoBehaviour{
     [SerializeField, SerializeReference]private string objectName;
     [SerializeField, SerializeReference]private GameObject prefab;
     

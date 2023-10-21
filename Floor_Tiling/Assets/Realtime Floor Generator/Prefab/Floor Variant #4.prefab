@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ca5f189516752d044b135df6ae63c5a3, type: 2}
+    - target: {fileID: 782613909071333992, guid: 0e2031a474209df4e82e025495468368,
+        type: 3}
+      propertyPath: objectName
+      value: FloorVariant#04
+      objectReference: {fileID: 0}
     - target: {fileID: 3618775946741556642, guid: 0e2031a474209df4e82e025495468368,
         type: 3}
       propertyPath: m_LocalPosition.x
