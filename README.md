@@ -3,6 +3,9 @@
 This system will create floor tile at a certain radius keeping the player at the center. It will update the floor as the player moves creating new tiles or deleting them as needed.
 I have used this system in the game [Boat Blitz](https://play.google.com/store/apps/details?id=com.novalabs.bb&pcampaignid=web_share).
 
+<b>Remainder:</b> The code is not very efficient. Keeping the Spawn Radius below 100 is recommended. 
+The less the better. 
+
 Two more system were also created along with to work better. 
 
 ## Pooling System
